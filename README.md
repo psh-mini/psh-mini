@@ -11,3 +11,5 @@ npm install d3
 npm install express
 
 node src/api/server - to start backend server
+
+pip install dotenv
