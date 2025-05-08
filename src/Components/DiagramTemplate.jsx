@@ -16,9 +16,12 @@ export default function DiagramTemplate({ onValveClick, onPumpClick }) {
       </g> */}
 
       {/* Pipes (lines) */}
-      <g transform="translate(100, 40)"> {/* 20% of 800 = 160, 80% of 600 = 480 */}
+      <g transform="translate(160, 90)"> {/* 20% of 800 = 160, 80% of 600 = 480 */}
         <line x1="0" y1="15" x2="100" y2="15" stroke="black" strokeWidth="3" />
         <polygon points="100,10 115,15 100,20" fill="black" />
+      </g>
+      <g transform="translate(160, 90)"> {/* 20% of 800 = 160, 80% of 600 = 480 */}
+        <line x1="190" y1="0" x2="190" y2="0" stroke="black" strokeWidth="3" />
       </g>
 
       
