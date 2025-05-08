@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import Graphs from './Components/Graphs';
+import GraphTemplate from './Components/GraphTemplate';
 import DiagramTemplate from './Components/DiagramTemplate';
 import './App.css';
 function App() {
@@ -10,7 +10,7 @@ function App() {
         <DiagramTemplate />
       </div>
       <div className="graph-panel">
-        <Graphs />
+        <GraphTemplate />
       </div>
     </div>
   );

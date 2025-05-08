@@ -1,21 +1,10 @@
 import React from 'react';
-import { useComponentPosition } from './useComponentPosition';
 import './GraphTemplate.css';
 
-export default function GraphTemplate({ name, children }) {
-  const { top, left } = useComponentPosition(name);
-
+export default function GraphTemplate() {
   return (
-    <div
-      className="graph-template"
-      style={{
-        position: 'absolute',
-        top,
-        left,
-        transform: 'translate(-50%, -50%)',
-      }}
-    >
-      {children}
+    <div className="graph-template-panel">
+      <h2 className="sidebar-title">UW Korn Hydro</h2>
     </div>
   );
 }
