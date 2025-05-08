@@ -5,13 +5,14 @@ const PORT = 3000;
 
 app.use(express.json());
 
+//TODO modify post to send data to azure
 app.post('/api/data', (req, res) => {
   const { current, flowrate } = req.body;
   console.log('Received data:', { current, flowrate });
   res.status(200).send('Data received\n');
 });
 
-// Basic GET endpoint (optional for testing)
+// get to show it running 
 app.get('/', (req, res) => {
   res.send('Server is running');
 });
