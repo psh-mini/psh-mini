@@ -13,3 +13,7 @@ npm install express
 node src/api/server - to start backend server
 
 pip install dotenv
+
+npm install pg
+
+./Sourceben/dom - simple post request to HTTP:3000
