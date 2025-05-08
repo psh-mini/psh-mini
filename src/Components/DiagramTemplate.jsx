@@ -61,10 +61,14 @@ export default function DiagramTemplate() {
       <Generator />
       </PositionedComponent>
 
-      <PositionedComponent name="reservoir">
-      <Reservoir />
+      <PositionedComponent name="upper reservoir">
+      <Reservoir tooltip="Upper Reservoir"/>
       </PositionedComponent>
-      
+
+      <PositionedComponent name="lower reservoir">
+      <Reservoir tooltip="Lower Reservoir"/>
+      </PositionedComponent>
+
     </div>
 
   );

@@ -1,15 +1,15 @@
 import React from 'react';
 import './Reservoir.css'; 
 
-export default function Reservoir() {
+export default function Reservoir({ tooltip = "Reservoir"}) {
   return (
     <div className="reservoir-container">
       <img
         src="/Icons/Reservoir.png"
-        alt="Reservoir"
+        alt={tooltip}
         className="reservoir-image"
       />
-      <span className="tooltip">Reservoir</span>
+      <span className="tooltip">{tooltip}</span>
     </div>
   );
 }
