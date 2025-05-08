@@ -1,5 +1,6 @@
 // src/Components/Arrow.jsx
 import React from 'react';
+import './Arrow.css';
 
 export default function Arrow({
   x1,
@@ -10,6 +11,7 @@ export default function Arrow({
   stroke = 'black',
   strokeWidth = 1,
   showArrowhead = true,
+  flowing = false,
 }) {
   const markerId = `arrowhead-${stroke.replace('#', '')}`;
 
@@ -38,6 +40,7 @@ export default function Arrow({
           strokeWidth={strokeWidth}
           fill="none"
           markerEnd={showArrowhead ? `url(#${markerId})` : undefined}
+          className={flowing ? 'flowing-arrow' : ''}
         />
       ) : (
         <line
@@ -48,6 +51,7 @@ export default function Arrow({
           stroke={stroke}
           strokeWidth={strokeWidth}
           markerEnd={showArrowhead ? `url(#${markerId})` : undefined}
+          className={flowing ? 'flowing-arrow' : ''}
         />
       )}
     </>
