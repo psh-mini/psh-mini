@@ -5,15 +5,41 @@
     display: flex;
     flex-direction: column; 
     align-items: center;     
-    padding: 15%;
     box-sizing: border-box;
   }
   
   .sidebar-title {
-    font-size: 10rem;
+    font-size: 5rem;
     font-weight: bold;
     color: #333;
-    margin-bottom: 20px;
+    margin-bottom: 5%;
     white-space: nowrap;
   }
+
+  .graph-selector {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+  }
+  
+  .graph-selector button {
+    width: 100%;
+    padding: 20px;            
+    font-size: 4rem;          
+    background-color: #eee;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    text-align: center;        
+  }
+  
+  .graph-selector button:hover {
+    background-color: #ddd;
+  }
+  
+  .graph-selector .active {
+    background-color: #ddd;
+    font-weight: bold;
+  }
+  
   
