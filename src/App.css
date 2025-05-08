@@ -5,12 +5,18 @@
     overflow: hidden;
   }
   
-  .side-panel {
-    width: 30%;
-    padding: 20px;
-    background-color: #f9f9f9;
+  .diagram-panel {
+    flex: 7; 
+    background-color: #ddd; 
+    position: relative;
+  }
+
+  .graph-panel {
+    flex: 3; 
+    padding: 16px;
+    background-color: #550606;
     overflow-y: auto;
-    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    box-shadow: -2px 0 6px rgba(0, 0, 0, 0.1);
   }
 
   * {
