@@ -1,0 +1,1 @@
+//Component containing status and manual control of valve 
