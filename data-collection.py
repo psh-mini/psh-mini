@@ -2,19 +2,22 @@ import psycopg2
 
 import json
 
-import time
+from dotenv import load_dotenv
+import os
+load_dotenv()
+# import time
 
-import random
+# import random
 
 
-datafromdb = [1, 2, 3, 4, 5]
+# datafromdb = [1, 2, 3, 4, 5]
 
 conn = psycopg2.connect(
-    user="dgrassy",  
-    password="Catl1243=",   
-    host="psh-mini.postgres.database.azure.com",
-    port="5432", 
-    database="minidata"
+    user=os.getenv('USER'),  
+    password=os.getenv('PASSWORD'),   
+    host=os.getenv('HOST'),
+    port=os.getenv('PORT'), 
+    database=os.getenv('DATABASE')
 )
 
 cur = conn.cursor()
