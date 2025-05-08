@@ -1,18 +1,26 @@
 //Routes for front end to call back end 
 
 // TODO: DANE
-function getRecentFlowData() {
+export function getRecentFlowData() {
 
 }
 
-function getRecentValveData() {
+export function getRecentValveData() {
 
 }
 
-function getRecentPumpData() {
+export function getRecentPumpData() {
 
 }
 
-function getRecentPowerData() {
+export function getRecentPowerData() {
 
+}
+
+export function toggleValve() {
+    console.log("pump toggled");
+}
+
+export function togglePump() {
+    console.log("valve toggled");
 }
