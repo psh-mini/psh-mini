@@ -23,7 +23,7 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
-//TODO modify post to send data to azure
+// post that recieves a {current, flowrate} from client curl request, and then uploads to server
 app.post('/api/data', async (req, res) => {
   const { current, flowrate } = req.body;
   console.log('Received data:', { current, flowrate });
@@ -37,16 +37,16 @@ app.post('/api/data', async (req, res) => {
     const data = [current, flowrate, true, false];
     // insert
     await pool.query(
-      'INSERT INTO sensor_data (timestamp, power, flowrate, valve, pump) VALUES (to_char(NOW(), \'yyyymmddhh24miss\')::bigint, $1, $2, $3, $4)',
+      'INSERT INTO sensor_data (timestamp, power, flowrate, valve, pump) '
+       + 'VALUES (to_char(NOW(), \'yyyymmddhh24miss\')::bigint, $1, $2, $3, $4)',
       data
     );
   
-    // display all
-    const displayEntry = await pool.query('SELECT * from sensor_data');
+    // display most recent entry
+    const displayMostRecentEntry = await pool.query('SELECT * FROM sensor_data ORDER BY timestamp DESC LIMIT 1;');
     res.status(200).json({
-      message: 'Data inserted into DB',
-      inserted: data,
-      allData: displayEntry.rows
+      status: 'Success',
+      entry: displayMostRecentEntry.rows
     });
   } catch (err) {
     console.error('DB insert error:', err);
@@ -56,9 +56,15 @@ app.post('/api/data', async (req, res) => {
 //   res.status(200).send('Data received\n');
 });
 
-// get to show it running 
-app.get('/', (req, res) => {
-  res.send('Server is running');
+// on get request send a binary value for pump and valve
+app.get('/api/data', async (req, res) => {
+  
+    const latest = {valve: true, pump: true};
+    const json = JSON.stringify(latest);
+    console.log("get request performed")
+    // Send raw binary
+    res.setHeader('Content-Type', 'application/octet-stream');
+    res.send(Buffer.from(json));
 });
 
 //start listening for connects
