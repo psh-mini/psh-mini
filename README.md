@@ -7,3 +7,5 @@ npm run dev  - to start server
 pip install psycopg2-binary PostgresSQL Python Package
 
 npm install d3
+
+npm install express
