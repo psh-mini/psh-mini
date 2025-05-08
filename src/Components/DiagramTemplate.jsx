@@ -5,48 +5,30 @@ import Pump from './Pump';
 import Generator from './Generator';
 import Reservoir from './Reservoir';
 import PositionedComponent from './PositionedComponent';
+import Arrow from './Arrow';
+
 
 
 export default function DiagramTemplate() {
   return (
     <div className="flow-diagram">
-      <svg viewBox="0 0 800 600">
-        {/* <g onClick={() => alert('Upper Reservoir clicked')}>
-          <rect x="50" y="100" width="100" height="150" fill="#444" rx="20" />
-          <rect x="50" y="200" width="100" height="50" fill="skyblue" />
-          <text x="60" y="270">Upper Reservoir</text>
-        </g>
+      <svg viewBox="0 0 100 100">
 
-        <g onClick={onValveClick}>
-          <circle cx="200" cy="150" r="20" fill="black" />
-          <text x="180" y="190">Valve</text>
-        </g> */}
+      // Upper reservoir → valve
+      <Arrow path="M12,30 L22,30" stroke="black" />
+{/* 
+      // Valve → generator
+      <Arrow path="M22,30 L40,30 L40,60 L68,60" stroke="black" />
 
-        {/* Pipes (lines) */}
-        <g transform="translate(180, 90)"> {/* top resevoir to valve */}
-          <line x1="0" y1="15" x2="100" y2="15" stroke="black" strokeWidth="3" />
-          <polygon points="100,10 115,15 100,20" fill="black" />
-        </g>
-        <g transform="translate(180, 90)"> {/* valve to generator */}
-          <line x1="190" y1="15" x2="260" y2="15" stroke="black" strokeWidth="3" />
-          <line x1="260" y1="13.5" x2="260" y2="150" stroke="black" strokeWidth="3" />
-          <line x1="260" y1="148.5" x2="130" y2="149.5" stroke="black" strokeWidth="3" />
-          <polygon transform='translate(30 134.5)' points="100,10 85,15 100,20" fill="black" />
-        </g>
-        <g transform="translate(140, 224.5)"> {/* generator to lower resevoir */}
-          <line x1="0" y1="15" x2="70" y2="15" stroke="black" strokeWidth="3" />
-          <polygon transform='translate(-100 0)' points="100,10 85,15 100,20" fill="black" />
-        </g>
-        <g transform="translate(140, 224.5)"> {/* lower res to pump */}
-          <line x1="-70" y1="15" x2="-110" y2="15" stroke="black" strokeWidth="3" />
-          <line x1="-108.5" y1="15" x2="-108.5" y2="-30" stroke="black" strokeWidth="3" />
-          <polygon transform='translate(-208.5 -45)' points="105,20 100,5 95,20" fill="black" />
-        </g>
-        <g transform="translate(140, 120)"> {/* pump to upper res */}
-          <line x1="-108.5" y1="25" x2="-108.5" y2="-16.5" stroke="black" strokeWidth="3" />
-          <line x1="-108.5" y1="-15" x2="-25" y2="-15" stroke="black" strokeWidth="3" />
-          <polygon transform='translate(-125 -30)' points="100,10 115,15 100,20" fill="black" />
-        </g>
+      // Generator → lower reservoir
+      <Arrow path="M68,60 L68,70 L42,70" stroke="black" />
+
+      // Lower reservoir → pump
+      <Arrow path="M42,70 L22,70 L22,86" stroke="black" />
+
+      // Pump → upper reservoir
+      <Arrow path="M22,86 L22,42 L12,42 L12,30" stroke="black" />
+*/}
       </svg>
 
       <PositionedComponent name="valve">
