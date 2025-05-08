@@ -23,7 +23,7 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
-//TODO modify post to send data to azure
+// post that recieves a {current, flowrate} from client curl request, and then uploads to server
 app.post('/api/data', async (req, res) => {
   const { current, flowrate } = req.body;
   console.log('Received data:', { current, flowrate });
@@ -56,9 +56,15 @@ app.post('/api/data', async (req, res) => {
 //   res.status(200).send('Data received\n');
 });
 
-// get to show it running 
-app.get('/', (req, res) => {
-  res.send('Server is running');
+// on get request send a binary value for pump and valve
+app.get('/api/data', async (req, res) => {
+  
+    const latest = {valve: true, pump: true};
+    const json = JSON.stringify(latest);
+    console.log("get request performed")
+    // Send raw binary
+    res.setHeader('Content-Type', 'application/octet-stream');
+    res.send(Buffer.from(json));
 });
 
 //start listening for connects
