@@ -37,7 +37,8 @@ app.post('/api/data', async (req, res) => {
     const data = [current, flowrate, true, false];
     // insert
     await pool.query(
-      'INSERT INTO sensor_data (timestamp, power, flowrate, valve, pump) VALUES (to_char(NOW(), \'yyyymmddhh24miss\')::bigint, $1, $2, $3, $4)',
+      'INSERT INTO sensor_data (timestamp, power, flowrate, valve, pump) '
+       + 'VALUES (to_char(NOW(), \'yyyymmddhh24miss\')::bigint, $1, $2, $3, $4)',
       data
     );
   
