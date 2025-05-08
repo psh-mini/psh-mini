@@ -6,11 +6,12 @@ import Generator from './Generator';
 import Reservoir from './Reservoir';
 import PositionedComponent from './PositionedComponent';
 import Arrow from './Arrow';
+import ControlButton from './ControlButton';
 
 export default function DiagramTemplate() { 
   const [valveOpen, setValveOpen] = useState(false);
   const [pumpOn, setPumpOn] = useState(false);
-  
+
   return (
     <div className="flow-diagram">
       <svg viewBox="0 0 100 100">
@@ -52,15 +53,19 @@ export default function DiagramTemplate() {
       <Reservoir tooltip="Lower Reservoir"/>
       </PositionedComponent>
 
-      <div style={{ position: 'absolute', top: '5px', left: '5px', zIndex: 10 }}>
-        <button onClick={() => setValveOpen(v => !v)}>
-          Toggle Valve ({valveOpen ? 'Open' : 'Closed'})
-        </button>
-        <button onClick={() => setPumpOn(p => !p)}>
-          Toggle Pump ({pumpOn ? 'On' : 'Off'})
-        </button>
-      </div>
-    </div>
+      <PositionedComponent name="valve button">
+        <ControlButton
+          isActive={valveOpen}
+          onClick={() => setValveOpen(v => !v)}
+        />
+      </PositionedComponent>
 
+      <PositionedComponent name="pump button">
+        <ControlButton
+          isActive={pumpOn}
+          onClick={() => setPumpOn(p => !p)}
+        />
+      </PositionedComponent>
+    </div>
   );
 }
