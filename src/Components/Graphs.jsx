@@ -1,3 +1,4 @@
+//Component containing flowrate and current data
 const data = [30, 80, 45, 60, 20, 90, 50];
 
 const svg = d3.select("#chart");
