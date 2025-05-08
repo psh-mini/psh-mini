@@ -4,6 +4,7 @@
     background-color: #ddd;
     aspect-ratio: 4 / 3;
     position: relative;
+    overflow: hidden;
   }
   
   .flow-diagram svg {

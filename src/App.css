@@ -12,4 +12,16 @@
     overflow-y: auto;
     box-shadow: -2px 0 5px rgba(0,0,0,0.1);
   }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* prevents scrolling */
+    font-family: sans-serif;
+  }
+  
   
