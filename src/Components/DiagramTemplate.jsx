@@ -1,7 +1,7 @@
 import React from 'react';
 import './DiagramTemplate.css';
 
-export default function DiagramTemplate({ onValveClick, onPumpClick }) {
+export default function DiagramTemplate() {
   return (
     <svg viewBox="0 0 800 600" className="flow-diagram">
       {/* <g onClick={() => alert('Upper Reservoir clicked')}>
@@ -16,31 +16,32 @@ export default function DiagramTemplate({ onValveClick, onPumpClick }) {
       </g> */}
 
       {/* Pipes (lines) */}
-      <g transform="translate(160, 90)"> {/* 20% of 800 = 160, 80% of 600 = 480 */}
+      <g transform="translate(180, 90)"> {/* top resevoir to valve */}
         <line x1="0" y1="15" x2="100" y2="15" stroke="black" strokeWidth="3" />
         <polygon points="100,10 115,15 100,20" fill="black" />
       </g>
-      <g transform="translate(160, 90)"> {/* 20% of 800 = 160, 80% of 600 = 480 */}
-        <line x1="190" y1="0" x2="190" y2="0" stroke="black" strokeWidth="3" />
+      <g transform="translate(180, 90)"> {/* valve to generator */}
+        <line x1="190" y1="15" x2="260" y2="15" stroke="black" strokeWidth="3" />
+        <line x1="260" y1="13.5" x2="260" y2="150" stroke="black" strokeWidth="3" />
+        <line x1="260" y1="148.5" x2="130" y2="149.5" stroke="black" strokeWidth="3" />
+        <polygon transform='translate(30 134.5)' points="100,10 85,15 100,20" fill="black" />
+      </g>
+      <g transform="translate(140, 224.5)"> {/* generator to lower resevoir */}
+        <line x1="0" y1="15" x2="70" y2="15" stroke="black" strokeWidth="3" />
+        <polygon transform='translate(-100 0)' points="100,10 85,15 100,20" fill="black" />
+      </g>
+      <g transform="translate(140, 224.5)"> {/* lower res to pump */}
+        <line x1="-70" y1="15" x2="-110" y2="15" stroke="black" strokeWidth="3" />
+        <line x1="-108.5" y1="15" x2="-108.5" y2="-30" stroke="black" strokeWidth="3" />
+        <polygon transform='translate(-208.5 -45)' points="105,20 100,5 95,20" fill="black" />
+      </g>
+      <g transform="translate(140, 120)"> {/* pump to upper res */}
+        <line x1="-108.5" y1="25" x2="-108.5" y2="-16.5" stroke="black" strokeWidth="3" />
+        <line x1="-108.5" y1="-15" x2="-25" y2="-15" stroke="black" strokeWidth="3" />
+        <polygon transform='translate(-125 -30)' points="100,10 115,15 100,20" fill="black" />
       </g>
 
       
-      {/* <g onClick={() => alert('Generator clicked')}>
-        <circle cx="350" cy="150" r="30" fill="gray" />
-        <text x="330" y="200">Generator</text>
-      </g>
-
-
-      <g onClick={() => alert('Lower Reservoir clicked')}>
-        <rect x="50" y="350" width="100" height="150" fill="#444" rx="20" />
-        <rect x="50" y="450" width="100" height="50" fill="blue" />
-        <text x="60" y="520">Lower Reservoir</text>
-      </g>
-
-      <g onClick={onPumpClick}>
-        <circle cx="200" cy="450" r="30" fill="black" />
-        <text x="180" y="500">Pump</text>
-      </g> */}
     </svg>
   );
 }
