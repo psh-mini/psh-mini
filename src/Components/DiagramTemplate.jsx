@@ -15,19 +15,19 @@ export default function DiagramTemplate() {
       <svg viewBox="0 0 100 100">
 
       // Upper reservoir → valve
-      <Arrow path="M10,31 L37,31" stroke="black" />
+      <Arrow path="M9,31 L36,31" stroke="black" />
 
       // Valve → generator
-      <Arrow path="M50,31 L100,31 L100,60 L90,60" stroke="black" />
+      <Arrow path="M50,31 L100,31 L100,60 L91,60" stroke="black" />
 
       // Generator → lower reservoir
-      <Arrow path="M75,60 L50,60" stroke="black" />
+      <Arrow path="M76,60 L50,60" stroke="black" />
 
       // Lower reservoir → pump
-      <Arrow path="M38,60 L12,60" stroke="black" />
+      <Arrow path="M38,60 L11,60" stroke="black" />
 
       // Pump → upper reservoir
-      <Arrow path="M-2,60  L-10,60 L-10,31 L-2,31" stroke="black" />
+      <Arrow path="M-3,60  L-10,60 L-10,31 L-3,31" stroke="black" />
 
       </svg>
 
