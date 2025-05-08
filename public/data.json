@@ -1,1 +1,37 @@
-[1, 2, 3, 4, 5]
+[
+    {
+        "timestamp": 1746685960,
+        "power": 10.99,
+        "flowrate": 5.69,
+        "valve": true,
+        "pump": true
+    },
+    {
+        "timestamp": 1746685900,
+        "power": 11.61,
+        "flowrate": 6.8,
+        "valve": false,
+        "pump": true
+    },
+    {
+        "timestamp": 1746685897,
+        "power": 14.57,
+        "flowrate": 6.73,
+        "valve": false,
+        "pump": true
+    },
+    {
+        "timestamp": 1746685840,
+        "power": 11.58,
+        "flowrate": 6.53,
+        "valve": false,
+        "pump": false
+    },
+    {
+        "timestamp": 1746685837,
+        "power": 13.78,
+        "flowrate": 5.87,
+        "valve": true,
+        "pump": false
+    }
+]
