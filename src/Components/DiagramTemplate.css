@@ -1,0 +1,12 @@
+.flow-diagram {
+    width: 100%;
+    height: auto;
+    background-color: #ddd;
+  }
+  
+  .flow-diagram text {
+    font-size: 12px;
+    fill: black;
+    pointer-events: none;
+  }
+  

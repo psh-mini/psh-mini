@@ -4,8 +4,8 @@ import * as d3 from 'd3';
 
 const generateGraph = (chartRef, datainput) => {
     const svg = d3.select(chartRef.current);
-    const width = 600;
-    const height = 400;
+    const width = 400;
+    const height = 200;
     const barWidth = width / datainput.length;
 
     svg.selectAll("rect").remove(); // Prevent duplication
