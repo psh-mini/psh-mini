@@ -1,9 +1,9 @@
 const componentPositions = {
-    valve: { top: '28%', left: '22%' },
-    pump: { top: '84%', left: '22%' },
-    generator: { top: '58%', left: '68%' },
-    'upper reservoir': { top: '25%', left: '10%' },
-    'lower reservoir': { top: '66%', left: '42%' },
+  'upper reservoir': { top: '30%', left: '15%' },
+    valve: { top: '30%', left: '45%' },
+    generator: { top: '60%', left: '75%' },
+    'lower reservoir': { top: '60%', left: '45%' },
+    pump: { top: '60%', left: '15%' },
   };
   
   export function useComponentPosition(name) {
