@@ -41,12 +41,11 @@ app.post('/api/data', async (req, res) => {
       data
     );
   
-    // display all
-    const displayEntry = await pool.query('SELECT * from sensor_data');
+    // display most recent entry
+    const displayMostRecentEntry = await pool.query('SELECT * FROM sensor_data ORDER BY timestamp DESC LIMIT 1;');
     res.status(200).json({
-      message: 'Data inserted into DB',
-      inserted: data,
-      allData: displayEntry.rows
+      status: 'Success',
+      entry: displayMostRecentEntry.rows
     });
   } catch (err) {
     console.error('DB insert error:', err);
