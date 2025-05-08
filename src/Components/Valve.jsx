@@ -1,11 +1,11 @@
 import React from 'react';
-import './Valve.css'; // for tooltip styling
+import './Valve.css'; 
 
 export default function Valve() {
   return (
     <div className="valve-container">
       <img
-        src="/Icons/valve.png"
+        src="/Icons/Valve2.png"
         alt="Water Valve"
         className="valve-image"
       />

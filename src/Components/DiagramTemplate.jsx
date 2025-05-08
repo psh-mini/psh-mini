@@ -1,15 +1,16 @@
 import React from 'react';
 import './DiagramTemplate.css';
 import Valve from './Valve';
-// import Pump from './Pump';
-// import Generator from './Generator';
+import Pump from './Pump';
+import Generator from './Generator';
+import Reservoir from './Reservoir';
 import PositionedComponent from './PositionedComponent';
 
 
 export default function DiagramTemplate() {
   return (
-    <div className="diagram-wrapper">
-      <svg viewBox="0 0 800 600" className="flow-diagram">
+    <div className="flow-diagram">
+      <svg viewBox="0 0 800 600">
         {/* <g onClick={() => alert('Upper Reservoir clicked')}>
           <rect x="50" y="100" width="100" height="150" fill="#444" rx="20" />
           <rect x="50" y="200" width="100" height="50" fill="skyblue" />
@@ -51,7 +52,7 @@ export default function DiagramTemplate() {
       <PositionedComponent name="valve">
       <Valve />
       </PositionedComponent>
-  {/*
+
       <PositionedComponent name="pump">
       <Pump />
       </PositionedComponent>
@@ -59,7 +60,11 @@ export default function DiagramTemplate() {
       <PositionedComponent name="generator">
       <Generator />
       </PositionedComponent>
-      */}
+
+      <PositionedComponent name="reservoir">
+      <Reservoir />
+      </PositionedComponent>
+      
     </div>
 
   );

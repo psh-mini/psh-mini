@@ -1,10 +1,10 @@
-.valve-container {
+.reservoir-container {
     position: relative;
     display: inline-block;
     cursor: pointer;
   }
   
-  .valve-image {
+  .reservoir-image {
     width: 300px;
     height: 300px; 
     object-fit: contain; 
@@ -28,7 +28,7 @@
     white-space: nowrap;
   }
   
-  .valve-container:hover .tooltip {
+  .reservoir-container:hover .tooltip {
     visibility: visible;
     opacity: 1;
   }

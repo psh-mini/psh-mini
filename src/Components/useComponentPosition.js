@@ -1,7 +1,8 @@
 const componentPositions = {
-    valve: { top: '18%', left: '19%' },
-    pump: { top: '70%', left: '22%' },
-    generator: { top: '50%', left: '75%' },
+    valve: { top: '18%', left: '29%' },
+    pump: { top: '40%', left: '9%' },
+    generator: { top: '40%', left: '22%' },
+    reservoir: { top: '18%', left: '13.5%' },
     flowrate: { top: '30%', left: '60%' },
     current: { top: '60%', left: '80%' },
   };
