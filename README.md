@@ -1,5 +1,5 @@
-# ⚡ PSH-mini: Pumped Storage Hydroelectricity System  
-### 🏞️ Built at Seattle Climate Hacks 2025
+# PSH-mini: Pumped Storage Hydroelectricity System  
+### Built at Seattle Climate Hacks 2025
 
 HydroPulse is a functional prototype of a **pumped storage hydroelectricity system** with real-time hardware control, SCADA-style monitoring, and cloud-integrated data acquisition. Designed for resilience and sustainability, our system simulates the energy storage model used in grid-scale renewable systems, scaled for demonstration and educational use.
 
@@ -7,7 +7,7 @@ HydroPulse is a functional prototype of a **pumped storage hydroelectricity syst
 
 ## Our Product
 
-### 🌊 Physical System
+### Physical System
 A working scaled model of a pumped hydro system:
 - **Upper and Lower Reservoirs** with visible flow simulation
 - **DC Pump & Valve Actuators** controlled via microcontroller
