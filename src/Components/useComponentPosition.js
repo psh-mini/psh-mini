@@ -6,6 +6,8 @@ const componentPositions = {
     'lower reservoir': { top: '60%', left: '45%' },
     pump: { top: '60%', left: '15%' },
     'pump button': { top: '68%', left: '15%' },
+    'override button': { top: '78%', left: '45%' },
+    'override button text': { top: '81.5%', left: '45%' },
   };
   
   export function useComponentPosition(name) {
