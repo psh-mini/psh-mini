@@ -62,16 +62,16 @@ app.post('/api/data', async (req, res) => {
 app.get('/api/data', async (req, res) => {
     console.log(getRequestSecondCounter);
     if(getRequestSecondCounter>=8 && getRequestSecondCounter<=12) { // pump phase
-        res.status(200).json({"valve": false, pump: true});
+        res.status(200).json({valve: false, pump: true});
     } else if(getRequestSecondCounter>=18 && getRequestSecondCounter<=22){ // generate phase 
-        res.status(200).json({"valve": true, pump: false});
+        res.status(200).json({valve: true, pump: false});
     } else if ((getRequestSecondCounter>22 && getRequestSecondCounter<=23) || getRequestSecondCounter>=0 && getRequestSecondCounter<=8){ // store phase 
-        res.status(200).json({"valve": false, pump: false});
+        res.status(200).json({valve: false, pump: false});
     } else if (getRequestSecondCounter>=24){
-        res.status(200).json({"valve": false, pump: false});
+        res.status(200).json({valve: false, pump: false});
         getRequestSecondCounter = 0;
     } else {
-        res.status(200).json({"valve": false, pump: false});
+        res.status(200).json({valve: false, pump: false});
     }
     getRequestSecondCounter = getRequestSecondCounter + 1;
     // execFile('python3', ['model/control_output.py'], (error, stdout, stderr) => {
