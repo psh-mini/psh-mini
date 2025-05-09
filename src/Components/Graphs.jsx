@@ -11,22 +11,21 @@ export default function Graphs({ selectedMetric }) {
   });
 
   useEffect(() => {
-    async function fetchData() {
+    const interval = setInterval(async () => {
       try {
         const res = await fetch('http://localhost:3001/api/frontend');
         const json = await res.json();
         const entries = json.data.reverse();
-
+  
         const newData = {
           powers: entries.map(e => e.power),
           flowrates: entries.map(e => e.flowrate),
           valves: entries.map(e => (e.valve ? 1 : 0)),
           pumps: entries.map(e => (e.pump ? 1 : 0))
         };
-
+  
         setData(newData);
-
-        // Log each array
+  
         console.log("✅ Powers:", newData.powers);
         console.log("✅ Flowrates:", newData.flowrates);
         console.log("✅ Valves:", newData.valves);
@@ -34,59 +33,72 @@ export default function Graphs({ selectedMetric }) {
       } catch (err) {
         console.error('❌ Error fetching graph data:', err);
       }
-    }
-    fetchData();
+    }, 1000); // Run every 1000 ms (1 second)
+  
+    return () => clearInterval(interval); // Cleanup on component unmount
   }, []);
+  
 
   useEffect(() => {
     const svg = d3.select(svgRef.current);
-    svg.selectAll('*').remove();
-
-    const metricData = {
-      flowrate: data.flowrates,
-      power: data.powers,
-      current: data.powers, // alias for power
-      valve: data.valves,
-      pump: data.pumps
-    }[selectedMetric];
-
-    if (!metricData || metricData.length === 0) return;
-
     const width = 400;
     const height = 250;
     const margin = { top: 40, right: 20, bottom: 50, left: 60 };
-
+  
+    // Clear everything on the first render
+    svg.selectAll('*').remove();
+    svg.attr('width', width).attr('height', height);
+  
+    const metricData = {
+      flowrate: data.flowrates,
+      power: data.powers,
+      current: data.powers,
+      valve: data.valves,
+      pump: data.pumps
+    }[selectedMetric];
+  
+    if (!metricData || metricData.length === 0) return;
+  
     const x = d3.scaleLinear()
       .domain([0, metricData.length - 1])
       .range([margin.left, width - margin.right]);
-
+  
     const y = d3.scaleLinear()
-      .domain([
-        0,
-        d3.max(metricData) === 0 ? 1 : d3.max(metricData)
-      ])
+      .domain([0, d3.max(metricData) || 1])
       .nice()
       .range([height - margin.bottom, margin.top]);
-
-    const svgEl = svg
-      .attr('width', width)
-      .attr('height', height);
-
+  
     const line = d3.line()
       .x((_, i) => x(i))
       .y(d => y(d))
       .curve(d3.curveMonotoneX);
-
-    svgEl.append('path')
+  
+    // Add X axis
+    svg.append('g')
+      .attr('class', 'x-axis')
+      .attr('transform', `translate(0,${height - margin.bottom})`)
+      .call(d3.axisBottom(x).ticks(metricData.length));
+  
+    // Add Y axis
+    svg.append('g')
+      .attr('class', 'y-axis')
+      .attr('transform', `translate(${margin.left},0)`)
+      .call(d3.axisLeft(y));
+  
+    // Line path
+    svg.append('path')
       .datum(metricData)
       .attr('fill', 'none')
       .attr('stroke', '#007bff')
       .attr('stroke-width', 2)
       .attr('d', line);
-
-    // Tooltip div
+  
+    // Tooltip
     const tooltip = d3.select('body')
-      .append('div')
+      .selectAll('.graph-tooltip')
+      .data([null])
+      .join('div')
+      .attr('class', 'graph-tooltip')
       .style('position', 'absolute')
       .style('background', '#fff')
       .style('border', '1px solid #ccc')
@@ -94,11 +106,11 @@ export default function Graphs({ selectedMetric }) {
       .style('border-radius', '4px')
       .style('pointer-events', 'none')
       .style('opacity', 0);
-
-    svgEl.selectAll('circle')
+  
+    // Circles with tooltip handlers
+    svg.selectAll('circle')
       .data(metricData)
-      .enter()
-      .append('circle')
+      .join('circle')
       .attr('cx', (_, i) => x(i))
       .attr('cy', d => y(d))
       .attr('r', 4)
@@ -118,24 +130,18 @@ export default function Graphs({ selectedMetric }) {
       .on('mouseout', () => {
         tooltip.style('opacity', 0);
       });
-
-    svgEl.append('g')
-      .attr('transform', `translate(0,${height - margin.bottom})`)
-      .call(d3.axisBottom(x).ticks(metricData.length).tickFormat(d => d));
-
-    svgEl.append('g')
-      .attr('transform', `translate(${margin.left},0)`)
-      .call(d3.axisLeft(y));
-
-    svgEl.append('text')
+  
+    // X-axis label
+    svg.append('text')
       .attr('text-anchor', 'middle')
       .attr('x', width / 2)
       .attr('y', height - 10)
       .text('Time (most recent → right)');
-
-    svgEl.append('text')
+  
+    // Y-axis label
+    svg.append('text')
       .attr('text-anchor', 'middle')
-      .attr('transform', `rotate(-90)`)
+      .attr('transform', 'rotate(-90)')
       .attr('x', -height / 2)
       .attr('y', 20)
       .text(
@@ -147,11 +153,12 @@ export default function Graphs({ selectedMetric }) {
           ? 'Valve (0 or 1)'
           : 'Pump (0 or 1)'
       );
-
+  
     return () => {
       tooltip.remove();
     };
   }, [data, selectedMetric]);
+  
 
   return <svg ref={svgRef} />;
 }

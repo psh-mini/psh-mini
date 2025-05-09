@@ -21,7 +21,7 @@ export default function DiagramTemplate() {
       const data = await res.json();
       setValveOpen(data.valve);
       setPumpOn(data.pump);
-      console.log('Assigned values:', valve, pump);
+      //console.log('Assigned values:', valve, pump);
     } catch (err) {
       console.error('Fetch error:', err);
     }
