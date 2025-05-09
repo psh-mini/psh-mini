@@ -1,13 +1,15 @@
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
+import json
+import random
 
 # ----------------------------------------
 # Data Loading and Model Training (run only once)
 # ----------------------------------------
 
 # Load and train model (same as Option 1)
-df = pd.read_csv("hourly_forecasting_dataset.csv")
+df = pd.read_csv("model/hourly_forecasting_dataset.csv")
 feature_cols = [f'lag_{i}' for i in range(1, 25)] + ['hour', 'dayofweek']
 target_cols = [f'target_{i}' for i in range(1, 25)]
 X = df[feature_cols]
@@ -20,7 +22,7 @@ model.fit(X_train, y_train)
 # Function to Get Immediate Control Action
 # ----------------------------------------
 
-def get_control_action(current_reservoir_capacity, max_reservoir_capacity, pumping_efficiency, generation_efficiency, latest_hourly_data):
+def get_control_action(current_reservoir_capacity, max_reservoir_capacity, pumping_efficiency, generation_efficiency, latest_hourly_data: dict = df[feature_cols].iloc[-1].to_dict()):
     """
     Predicts the next hour's load and determines the immediate pump/valve action.
     """
@@ -41,14 +43,13 @@ def get_control_action(current_reservoir_capacity, max_reservoir_capacity, pumpi
         potential_generate = (available_energy - predicted_load_next_hour) / generation_efficiency
         if current_reservoir_capacity - potential_generate >= 0:
             action["valve"] = True
-
     return action
 
 if __name__ == "__main__":
     # Example usage (replace with your actual data)
-    latest_data = df[feature_cols].iloc[-1].to_dict()
-    CURRENT_RESERVOIR_CAPACITY = 56000
-    MAX_RESERVOIR_CAPACITY = 100000
+    # latest_data = df[feature_cols].iloc[-1].to_dict()
+    CURRENT_RESERVOIR_CAPACITY = random.randint(0,10000)
+    MAX_RESERVOIR_CAPACITY = 10000
     PUMPING_EFFICIENCY = 0.85
     GENERATION_EFFICIENCY = 0.95
 
@@ -56,7 +57,7 @@ if __name__ == "__main__":
         CURRENT_RESERVOIR_CAPACITY,
         MAX_RESERVOIR_CAPACITY,
         PUMPING_EFFICIENCY,
-        GENERATION_EFFICIENCY,
-        latest_data
+        GENERATION_EFFICIENCY
     )
-    print(f"Immediate Control Action: {control}")
+    print(json.dumps(control))
+    #print(f"Immediate Control Action: {control}")
