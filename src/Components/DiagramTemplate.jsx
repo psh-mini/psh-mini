@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './DiagramTemplate.css';
 import Valve from './Valve';
 import Pump from './Pump';
@@ -10,11 +10,33 @@ import ControlButton from './ControlButton';
 import { fetchRecentPower } from '../api/API';
 
 
-
 export default function DiagramTemplate() { 
   const [valveOpen, setValveOpen] = useState(false);
   const [pumpOn, setPumpOn] = useState(false);
   const [manualOverride, setManualOverride] = useState(false);
+
+  async function fetchValvePump() {
+    try {
+      const res = await fetch('http://localhost:3000/api/data');
+      const data = await res.json();
+      setValveOpen(data.valve);
+      setPumpOn(data.pump);
+      console.log('Assigned values:', valve, pump);
+    } catch (err) {
+      console.error('Fetch error:', err);
+    }
+  }
+  useEffect(() => {
+    if (manualOverride) return;
+  
+    fetchValvePump();
+  
+    const interval = setInterval(() => {
+      fetchValvePump();
+    }, 1000);
+  
+    return () => clearInterval(interval);
+  }, [manualOverride]);
 
   async function buttonTogglePump() {
     //only toggleable if manual overrid is on
