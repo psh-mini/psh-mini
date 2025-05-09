@@ -1,4 +1,5 @@
 import express from 'express';
+import { execFile } from 'child_process';
 
 import pkg from 'pg';
 import dotenv from 'dotenv';
@@ -57,13 +58,22 @@ app.post('/api/data', async (req, res) => {
 
 // on get request send a binary value for pump and valve
 app.get('/api/data', async (req, res) => {
-  
-    const latest = {valve: true, pump: true};
-    const json = JSON.stringify(latest);
-    console.log("get request performed")
-    // Send raw binary
-    res.setHeader('Content-Type', 'application/octet-stream');
-    res.send(Buffer.from(json));
+    execFile('python3', ['model/control_output.py'], (error, stdout, stderr) => {
+        if (error) {
+            console.error('Python error:', stderr);
+            return res.status(500).send('Error running control script');
+        }
+
+        try {
+            const latest = JSON.parse(stdout);
+            const json = JSON.stringify(latest);
+            res.setHeader('Content-Type', 'application/octet-stream');
+            res.send(Buffer.from(json));
+        } catch (e) {
+            console.error('JSON parse error:', e);
+            res.status(500).send('Invalid control output');
+        }
+    });
 });
 
 //start listening for connects

@@ -17,3 +17,7 @@ pip install dotenv
 npm install pg
 
 ./Sourceben/dom - simple post request to HTTP:3000
+
+pip install scikit-learn
+
+pip install pandas

@@ -14,7 +14,7 @@ int main() {
     CURL *get_curl = curl_easy_init();
     CURLcode res;
 
-    const char *json_data = "{\"current\": 72.5, \"flowrate\": 12.3}";
+    const char *json_data = "{\"current\": 72.5, \"flowrate\": 12.3, \"valve\": 0, \"pump\": 0}";
 
     if (!post_curl || !get_curl) {
         fprintf(stderr, "Failed to initialize curl\n");
