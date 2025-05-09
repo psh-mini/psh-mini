@@ -35,9 +35,9 @@ A working scaled model of a pumped hydro system:
 
 ## Demo Screenshots
 
-| Physical Model | SCADA UI |
+| Physical Model | Software Architecture |
 |----------------|----------|
-| ![model](docs/model.jpg) |
+| ![model](docs/model.jpg) | ![model](docs/software_architecture.png) |
 
 ---
 
