@@ -7,7 +7,7 @@ import Reservoir from './Reservoir';
 import PositionedComponent from './PositionedComponent';
 import Arrow from './Arrow';
 import ControlButton from './ControlButton';
-import {togglePump, toggleValve} from '../api/API';
+//import {togglePump, toggleValve} from '../api/API';
 
 
 export default function DiagramTemplate() { 
@@ -16,13 +16,13 @@ export default function DiagramTemplate() {
 
   function buttonTogglePump() {
     setPumpOn(prev => !prev);
-    togglePump();
+    //togglePump();
     console.log('Pump toggled:', !pumpOn);
   }
   
   function buttonToggleValve() {
     setValveOpen(prev => !prev);
-    toggleValve();
+    //toggleValve();
     console.log('Valve toggled:', !valveOpen);
   }
 
