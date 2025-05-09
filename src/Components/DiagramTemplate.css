@@ -1,16 +1,12 @@
-  .flow-diagram {
-    width: 70%;
-    height: 100%;
-    background-color: #ddd;
-    aspect-ratio: 4 / 3;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .flow-diagram svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
+.flow-diagram {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.flow-diagram svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
   
   

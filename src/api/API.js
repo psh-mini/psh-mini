@@ -84,10 +84,21 @@ async function getRecentPowerData(req, res) {
 
 }
 
+async function togglePump (req, res) {
+  
+}
+
+async function toggleValve (req, res) {
+  
+}
+
+
 app.get('/api/recent-flow', getRecentFlowData);
 app.get('/api/recent-valve', getRecentValveData);
 app.get('/api/recent-pump', getRecentPumpData);
 app.get('/api/recent-power', getRecentPowerData);
+app.get('/api/toggle-pump', togglePump);
+app.get('/api/toggle-valve', toggleValve);
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);

@@ -7,10 +7,24 @@ import Reservoir from './Reservoir';
 import PositionedComponent from './PositionedComponent';
 import Arrow from './Arrow';
 import ControlButton from './ControlButton';
+import {togglePump, toggleValve} from '../api/API';
+
 
 export default function DiagramTemplate() { 
   const [valveOpen, setValveOpen] = useState(false);
   const [pumpOn, setPumpOn] = useState(false);
+
+  function buttonTogglePump() {
+    setPumpOn(prev => !prev);
+    togglePump();
+    console.log('Pump toggled:', !pumpOn);
+  }
+  
+  function buttonToggleValve() {
+    setValveOpen(prev => !prev);
+    toggleValve();
+    console.log('Valve toggled:', !valveOpen);
+  }
 
   return (
     <div className="flow-diagram">
@@ -56,14 +70,14 @@ export default function DiagramTemplate() {
       <PositionedComponent name="valve button">
         <ControlButton
           isActive={valveOpen}
-          onClick={() => setValveOpen(v => !v)}
+          onClick={buttonToggleValve}
         />
       </PositionedComponent>
 
       <PositionedComponent name="pump button">
         <ControlButton
           isActive={pumpOn}
-          onClick={() => setPumpOn(p => !p)}
+          onClick={buttonTogglePump}
         />
       </PositionedComponent>
     </div>

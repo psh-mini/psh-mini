@@ -5,8 +5,8 @@
   }
   
   .generator-image {
-    width: 500px;
-    height: 500px; 
+    width: 100px;
+    height: 100px; 
     object-fit: contain; 
   }
   
@@ -24,7 +24,7 @@
     transform: translateX(-50%);
     opacity: 0;
     transition: opacity 0.2s ease;
-    font-size: 100px;
+    font-size: 15px;
     white-space: nowrap;
   }
   
