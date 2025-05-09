@@ -10,32 +10,37 @@ export default function Graphs({ selectedMetric }) {
     pumps: []
   });
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const res = await fetch('http://localhost:3001/api/frontend');
-        const json = await res.json();
-        const entries = json.data.reverse();
+  async function fetchData() {
+    try {
+      const res = await fetch('http://localhost:3001/api/frontend');
+      const json = await res.json();
+      const entries = json.data.reverse();
 
-        const newData = {
-          powers: entries.map(e => e.power),
-          flowrates: entries.map(e => e.flowrate),
-          valves: entries.map(e => (e.valve ? 1 : 0)),
-          pumps: entries.map(e => (e.pump ? 1 : 0))
-        };
+      const newData = {
+        powers: entries.map(e => e.power),
+        flowrates: entries.map(e => e.flowrate),
+        valves: entries.map(e => (e.valve ? 1 : 0)),
+        pumps: entries.map(e => (e.pump ? 1 : 0))
+      };
 
-        setData(newData);
+      setData(newData);
 
-        // Log each array
-        console.log("✅ Powers:", newData.powers);
-        console.log("✅ Flowrates:", newData.flowrates);
-        console.log("✅ Valves:", newData.valves);
-        console.log("✅ Pumps:", newData.pumps);
-      } catch (err) {
-        console.error('❌ Error fetching graph data:', err);
-      }
+      // Log each array
+      console.log("✅ Powers:", newData.powers);
+      console.log("✅ Flowrates:", newData.flowrates);
+      console.log("✅ Valves:", newData.valves);
+      console.log("✅ Pumps:", newData.pumps);
+    } catch (err) {
+      console.error('❌ Error fetching graph data:', err);
     }
+  }
+
+  useEffect(() => {
     fetchData();
+    const interval = setInterval(() => {
+      fetchData();
+    }, 1000);
+        return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
