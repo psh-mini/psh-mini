@@ -37,7 +37,7 @@ A working scaled model of a pumped hydro system:
 
 | Physical Model | Software Architecture |
 |----------------|----------|
-| ![model](docs/model.jpg) | ![model](docs/software_architecture.png) |
+| ![model](docs/model.png) | ![model](docs/software_architecture.png) |
 
 ---
 
