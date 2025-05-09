@@ -1,5 +1,6 @@
 import express from 'express';
 import { execFile } from 'child_process';
+import cors from 'cors';
 
 import pkg from 'pg';
 import dotenv from 'dotenv';
@@ -8,6 +9,7 @@ dotenv.config();
 const { Pool } = pkg;
 
 let getRequestSecondCounter = 0;
+let overrideControl = null; //if null that means use the clock
 
 const pool = new Pool({
     user: process.env.PGUSER,
@@ -25,6 +27,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(cors());
 
 // post that recieves a {current, flowrate} from client curl request, and then uploads to server
 app.post('/api/data', async (req, res) => {
@@ -60,6 +63,9 @@ app.post('/api/data', async (req, res) => {
 
 // on get request send a binary value for pump and valve
 app.get('/api/data', async (req, res) => {
+    if (overrideControl !== null) {
+        return res.status(200).json(overrideControl);
+    }
     console.log(getRequestSecondCounter);
     if(getRequestSecondCounter>=8 && getRequestSecondCounter<=12) { // pump phase
         res.status(200).json({valve: false, pump: true});
@@ -90,6 +96,24 @@ app.get('/api/data', async (req, res) => {
     //         res.status(500).send('Invalid control output');
     //     }
     // });
+});
+
+app.post('/api/override', express.json(), (req, res) => {
+    const { valve, pump } = req.body;
+
+    if (typeof valve !== 'boolean' || typeof pump !== 'boolean') {
+        return res.status(400).send('valve and pump must be booleans');
+    }
+
+    overrideControl = { valve, pump };
+    console.log('Manual override set:', overrideControl);
+    res.status(200).send('Override applied');
+});
+
+app.post('/api/override/clear', (req, res) => {
+    overrideControl = null;
+    console.log('Manual override cleared');
+    res.status(200).send('Override cleared');
 });
 
 //start listening for connects
