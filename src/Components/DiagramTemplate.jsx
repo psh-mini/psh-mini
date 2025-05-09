@@ -7,16 +7,39 @@ import Reservoir from './Reservoir';
 import PositionedComponent from './PositionedComponent';
 import Arrow from './Arrow';
 import ControlButton from './ControlButton';
-//import {togglePump, toggleValve} from '../api/API';
+import { fetchRecentPower } from '../api/API';
+
 
 
 export default function DiagramTemplate() { 
   const [valveOpen, setValveOpen] = useState(false);
   const [pumpOn, setPumpOn] = useState(false);
 
-  function buttonTogglePump() {
+  async function buttonTogglePump() {
     setPumpOn(prev => !prev);
-    //togglePump();
+    // try {
+    //   const power = await fetchRecentPower();
+  
+    //   // Make sure data exists
+    //   if (power?.data?.length > 0) {
+    //     const latestTimestamp = power.data[0].timestamp;
+    //     const latestPower = power.data[0].power;
+    //     const latestFlow = power.data[0].flowrate;
+    //     const latestValve = power.data[0].valve;
+    //     const latestPump = power.data[0].pump;
+
+    //     console.log('✅ Most recent timestamp reading:', latestTimestamp);
+    //     console.log('✅ Most recent power reading:', latestPower);
+    //     console.log('✅ Most recent flow reading:', latestFlow);
+    //     console.log('✅ Most recent valve reading:', latestValve);
+    //     console.log('✅ Most recent pump reading:', latestPump);
+    //   } else {
+    //     console.warn('⚠️ No power data returned');
+    //   }
+  
+    // } catch (err) {
+    //   console.error('❌ Error fetching power data:', err);
+    // }
     console.log('Pump toggled:', !pumpOn);
   }
   
