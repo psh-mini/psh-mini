@@ -1,4 +1,5 @@
 import express from 'express';
+import { execFile } from 'child_process';
 
 import pkg from 'pg';
 import dotenv from 'dotenv';
@@ -25,16 +26,13 @@ app.use(express.json());
 
 // post that recieves a {current, flowrate} from client curl request, and then uploads to server
 app.post('/api/data', async (req, res) => {
-  const { current, flowrate } = req.body;
-  console.log('Received data:', { current, flowrate });
-
-  if (typeof current !== 'number' || typeof flowrate !== 'number') {
-    return res.status(400).send('Ensure current and flowrate are both numbers');
-  }
+  console.log("post called");
+  const { power, flowrate, valve, pump } = req.body;
 
   // Try inserting into danes db and then display db result after
   try {
-    const data = [current, flowrate, true, false];
+    const data = [power, flowrate, valve, pump];
+    console.log("Recieved data: " + data);
     // insert
     await pool.query(
       'INSERT INTO sensor_data (timestamp, power, flowrate, valve, pump) '
@@ -42,12 +40,14 @@ app.post('/api/data', async (req, res) => {
       data
     );
   
+    console.log("data inserted sucessfully!");
     // display most recent entry
     const displayMostRecentEntry = await pool.query('SELECT * FROM sensor_data ORDER BY timestamp DESC LIMIT 1;');
     res.status(200).json({
       status: 'Success',
       entry: displayMostRecentEntry.rows
     });
+    console 
   } catch (err) {
     console.error('DB insert error:', err);
     res.status(500).send('Database error\n');
@@ -58,13 +58,22 @@ app.post('/api/data', async (req, res) => {
 
 // on get request send a binary value for pump and valve
 app.get('/api/data', async (req, res) => {
-  
-    const latest = {valve: true, pump: true};
-    const json = JSON.stringify(latest);
-    console.log("get request performed")
-    // Send raw binary
-    res.setHeader('Content-Type', 'application/octet-stream');
-    res.send(Buffer.from(json));
+    execFile('python3', ['model/control_output.py'], (error, stdout, stderr) => {
+        if (error) {
+            console.error('Python error:', stderr);
+            return res.status(500).send('Error running control script');
+        }
+
+        try {
+            const latest = JSON.parse(stdout);
+            const json = JSON.stringify(latest);
+            res.setHeader('Content-Type', 'application/octet-stream');
+            res.send(Buffer.from(json));
+        } catch (e) {
+            console.error('JSON parse error:', e);
+            res.status(500).send('Invalid control output');
+        }
+    });
 });
 
 //start listening for connects
