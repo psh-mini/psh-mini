@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './GraphTemplate.css';
+import Graphs from './Graphs';
+
 
 export default function GraphTemplate() {
   const [selectedMetric, setSelectedMetric] = useState('flowrate');
@@ -18,6 +20,10 @@ export default function GraphTemplate() {
             {metric.charAt(0).toUpperCase() + metric.slice(1)}
           </button>
         ))}
+      </div>
+
+      <div className="graph-display">
+        <Graphs selectedMetric={selectedMetric} />
       </div>
     </div>
   );
