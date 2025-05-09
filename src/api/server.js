@@ -26,16 +26,13 @@ app.use(express.json());
 
 // post that recieves a {current, flowrate} from client curl request, and then uploads to server
 app.post('/api/data', async (req, res) => {
-  const { current, flowrate } = req.body;
-  console.log('Received data:', { current, flowrate });
-
-  if (typeof current !== 'number' || typeof flowrate !== 'number') {
-    return res.status(400).send('Ensure current and flowrate are both numbers');
-  }
+  console.log("post called");
+  const { power, flowrate, valve, pump } = req.body;
 
   // Try inserting into danes db and then display db result after
   try {
-    const data = [current, flowrate, true, false];
+    const data = [power, flowrate, valve, pump];
+    console.log("Recieved data: " + data);
     // insert
     await pool.query(
       'INSERT INTO sensor_data (timestamp, power, flowrate, valve, pump) '
@@ -43,12 +40,14 @@ app.post('/api/data', async (req, res) => {
       data
     );
   
+    console.log("data inserted sucessfully!");
     // display most recent entry
     const displayMostRecentEntry = await pool.query('SELECT * FROM sensor_data ORDER BY timestamp DESC LIMIT 1;');
     res.status(200).json({
       status: 'Success',
       entry: displayMostRecentEntry.rows
     });
+    console 
   } catch (err) {
     console.error('DB insert error:', err);
     res.status(500).send('Database error\n');
