@@ -62,7 +62,6 @@ app.get('/api/data', async (req, res) => {
   
     const latest = {valve: ControlCodes.VALVE_OPEN, pump: ControlCodes.PUMP_ON};
     const json = JSON.stringify(latest);
-    console.log("get request performed")
     // Send raw binary
     res.setHeader('Content-Type', 'application/octet-stream');
     res.send(Buffer.from(json));
