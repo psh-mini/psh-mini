@@ -7,6 +7,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 const { Pool } = pkg;
 
+let getRequestSecondCounter = 0;
+
 const pool = new Pool({
     user: process.env.PGUSER,
     host: process.env.PGHOST,
@@ -58,22 +60,36 @@ app.post('/api/data', async (req, res) => {
 
 // on get request send a binary value for pump and valve
 app.get('/api/data', async (req, res) => {
-    execFile('python3', ['model/control_output.py'], (error, stdout, stderr) => {
-        if (error) {
-            console.error('Python error:', stderr);
-            return res.status(500).send('Error running control script');
-        }
+    console.log(getRequestSecondCounter);
+    if(getRequestSecondCounter>=8 && getRequestSecondCounter<=12) { // pump phase
+        res.status(200).json({valve: false, pump: true});
+    } else if(getRequestSecondCounter>=18 && getRequestSecondCounter<=22){ // generate phase 
+        res.status(200).json({valve: true, pump: false});
+    } else if ((getRequestSecondCounter>22 && getRequestSecondCounter<=23) || getRequestSecondCounter>=0 && getRequestSecondCounter<=8){ // store phase 
+        res.status(200).json({valve: false, pump: false});
+    } else if (getRequestSecondCounter>=24){
+        res.status(200).json({valve: false, pump: false});
+        getRequestSecondCounter = 0;
+    } else {
+        res.status(200).json({valve: false, pump: false});
+    }
+    getRequestSecondCounter = getRequestSecondCounter + 1;
+    // execFile('python3', ['model/control_output.py'], (error, stdout, stderr) => {
+    //     if (error) {
+    //         console.error('Python error:', stderr);
+    //         return res.status(500).send('Error running control script');
+    //     }
 
-        try {
-            const latest = JSON.parse(stdout);
-            const json = JSON.stringify(latest);
-            res.setHeader('Content-Type', 'application/octet-stream');
-            res.send(Buffer.from(json));
-        } catch (e) {
-            console.error('JSON parse error:', e);
-            res.status(500).send('Invalid control output');
-        }
-    });
+    //     try {
+    //         const latest = JSON.parse(stdout);
+    //         const json = JSON.stringify(latest);
+    //         res.setHeader('Content-Type', 'application/octet-stream');
+    //         res.send(Buffer.from(json));
+    //     } catch (e) {
+    //         console.error('JSON parse error:', e);
+    //         res.status(500).send('Invalid control output');
+    //     }
+    // });
 });
 
 //start listening for connects
