@@ -2,6 +2,7 @@ import express from 'express';
 
 import pkg from 'pg';
 import dotenv from 'dotenv';
+import ControlCodes from './ControlCodes.js';
 
 dotenv.config();
 const { Pool } = pkg;
@@ -59,7 +60,7 @@ app.post('/api/data', async (req, res) => {
 // on get request send a binary value for pump and valve
 app.get('/api/data', async (req, res) => {
   
-    const latest = {valve: true, pump: true};
+    const latest = {valve: ControlCodes.VALVE_OPEN, pump: ControlCodes.PUMP_ON};
     const json = JSON.stringify(latest);
     console.log("get request performed")
     // Send raw binary
