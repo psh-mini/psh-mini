@@ -14,7 +14,7 @@ feature_cols = [f'lag_{i}' for i in range(1, 25)] + ['hour', 'dayofweek']
 target_cols = [f'target_{i}' for i in range(1, 25)]
 X = df[feature_cols]
 y = df[target_cols]
-X_train, _, y_train, _ = train_test_split(X, y, test_size=0.2, shuffle=False)
+X_train, _, y_train, _ = train_test_split(X, y, test_size=0.2, shuffle=True)
 model = RandomForestRegressor(n_estimators=100, random_state=42, n_jobs=-1)
 model.fit(X_train, y_train)
 
